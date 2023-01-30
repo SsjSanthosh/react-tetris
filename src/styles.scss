@@ -1,0 +1,25 @@
+body {
+  background-image: url("../public/bg.png");
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 99vw;
+  height: 97vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  @import url("https://fonts.googleapis.com/css2?family=Coda&display=swap");
+  font-family: "Coda", cursive;
+  color: #fff;
+
+  h1 {
+    font-size: 80px;
+  }
+  .boards-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+    width: 300px;
+    padding: 16px;
+  }
+}
