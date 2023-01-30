@@ -1,16 +1,28 @@
 import Cell from "Components/Cell";
-import React from "react";
+import { BLOCKS } from "utils/constants";
 import { createEmptyStage } from "utils/helpers";
+import { PlayerProps, ScreenProps } from "utils/types";
 
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 
-const Screen = () => {
-  const emptyScreen = createEmptyStage();
+const Screen = ({
+  screen,
+  player,
+}: {
+  screen: ScreenProps;
+  player: PlayerProps;
+}) => {
   return (
-    <div className={styles['container']}>
-      {emptyScreen.map((row) => {
+    <div className={styles["container"]}>
+      {screen.map((row) => {
         return row.map((cell, x) => {
-          return <Cell />;
+          const isColorBlock = cell[0] !== 0;
+          const color = isColorBlock
+            ? player.blockColor
+              ? player.blockColor
+              : "#000"
+            : "#000";
+          return <Cell color={color} key={Math.random()} />;
         });
       })}
     </div>

@@ -8,9 +8,19 @@ export interface ButtonProps {
   onClick: () => void;
 }
 
-export interface CellProps {
-  pos?: {
+export type CellProps = [number, "clear" | "collided"];
+export type ScreenProps = CellProps[][];
+export interface BlockProps {
+  shape: number[][];
+  color: string;
+}
+
+export interface PlayerProps {
+  blockPosition: {
     x: number;
     y: number;
   };
+  block: number[][];
+  collided: boolean;
+  blockColor: null | string;
 }
