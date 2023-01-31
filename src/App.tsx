@@ -47,7 +47,7 @@ const App = () => {
     keyCode: number;
     repeat: boolean;
   }) => {
-    if (!gameOver) {
+    if (!gameOver && !player.collided) {
       if (keyCode === 37) {
         // move left
         updatePlayer(-1);

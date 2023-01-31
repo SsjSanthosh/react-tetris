@@ -10,12 +10,12 @@ export const useGameStatus = (rowsCleared: number) => {
   const endGame = () => setGameOver(true);
   const startGame = () => setGameOver(false);
 
-  useEffect(() => {
-    if (!gameOver && rowsCleared > 0) {
-      setRows((old) => old + rowsCleared);
-      setScore((old) => old + ROWPOINTS[rowsCleared - 1] * level);
-    }
-  }, [rowsCleared, level, gameOver]);
+  // useEffect(() => {
+  //   if (!gameOver && rowsCleared > 0) {
+  //     setRows((old) => old + rowsCleared);
+  //     setScore((old) => old + ROWPOINTS[rowsCleared - 1] * level);
+  //   }
+  // }, [rowsCleared, level, gameOver]);
 
   const resetGameState = () => {
     setScore(0);

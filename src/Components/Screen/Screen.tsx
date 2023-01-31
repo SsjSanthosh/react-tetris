@@ -10,6 +10,7 @@ const Screen = ({
   screen: ScreenProps;
   player: PlayerProps;
 }) => {
+
   return (
     <div className={styles["container"]}>
       {screen.map((row) => {

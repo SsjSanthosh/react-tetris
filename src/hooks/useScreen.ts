@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { createEmptyStage } from "utils/helpers";
 import { CellProps, PlayerProps, ScreenProps } from "utils/types";
 
@@ -59,10 +59,10 @@ export const useScreen = (player: PlayerProps, resetPlayer: () => void) => {
     player.blockColor,
   ]);
 
-  const clearScreen = () => {
+  const clearScreen = useCallback(() => {
     setScreen(createEmptyStage());
     setRowsCleared(0);
-  };
+  }, []);
 
   return { screen, setScreen, rowsCleared, clearScreen };
 };
