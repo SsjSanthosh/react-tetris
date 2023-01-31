@@ -5,7 +5,14 @@ import { useGameStatus } from "hooks/useGameStatus";
 import { useInterval } from "hooks/useInterval";
 import { usePlayer } from "hooks/usePlayer";
 import { useScreen } from "hooks/useScreen";
-import { ReactHTML, useEffect, useMemo, useRef, useState } from "react";
+import {
+  ReactHTML,
+  TouchEventHandler,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createEmptyStage, isColliding } from "utils/helpers";
 import { DisplayProps } from "utils/types";
 import "./styles.scss";
@@ -13,9 +20,20 @@ import "./styles.scss";
 const App = () => {
   const { player, setPlayer, resetPlayer, movePlayer, rotateBlock } =
     usePlayer();
-  const { screen, setScreen, rowsCleared, clearScreen } = useScreen(player, resetPlayer);
-  const { gameOver, score, level, endGame, rows, setLevel, startGame, resetGameState } =
-    useGameStatus(rowsCleared);
+  const { screen, setScreen, rowsCleared, clearScreen } = useScreen(
+    player,
+    resetPlayer
+  );
+  const {
+    gameOver,
+    score,
+    level,
+    endGame,
+    rows,
+    setLevel,
+    startGame,
+    resetGameState,
+  } = useGameStatus(rowsCleared);
   const [droptime, setDropTime] = useState<null | number>(500);
 
   const DISPLAY_VALUES: DisplayProps[] = useMemo(() => {
@@ -27,11 +45,6 @@ const App = () => {
   }, [score, rows, level]);
 
   const screenRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (screenRef.current) {
-      screenRef.current.focus();
-    }
-  }, []);
 
   const updatePlayer = (val: number) => {
     const position = { x: val, y: 0 };
@@ -85,23 +98,63 @@ const App = () => {
     dropBlockEverySecond();
   }, droptime);
 
-  useEffect(()=>{
-    if(gameOver) clearScreen()
-  },[gameOver, clearScreen]);
+  useEffect(() => {
+    if (gameOver) clearScreen();
+  }, [gameOver, clearScreen]);
+
+  const focusOnGameArea = () => {
+    if (screenRef.current) {
+      screenRef.current.focus();
+    }
+  };
+
+  const handleKeyUp = ({keyCode}:{keyCode:number}) => {
+    if(keyCode === 40){
+      setDropTime(1000);
+    }
+  }
 
   const resetGame = () => {
     clearScreen();
     resetGameState();
-    startGame()
-  }
+    focusOnGameArea();
+    startGame();
+  };
 
+  const handleTouchScreen = (e: TouchEvent) => {
+    if (!gameOver && !player.collided) {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const leftMove = width / 3;
+      const rightMove = width / 1.5;
+      const verticalLeftBorder = leftMove;
+      const verticalRightBorder = rightMove;
+      const verticalBottomBorder = height / 2;
+      const { clientX, clientY } = e.touches[0];
+      // move left
+
+      if (clientX <= leftMove) {
+        updatePlayer(-1);
+      } else if (clientX >= rightMove) {
+        updatePlayer(1);
+      }
+      if (
+        clientY < verticalBottomBorder &&
+        clientX > verticalLeftBorder &&
+        clientX < verticalRightBorder
+      ) {
+        rotateBlock(screen);
+      }
+    }
+  };
 
   return (
     <div
       ref={screenRef}
       onKeyDown={moveBlock}
-      tabIndex={-1}
-      onKeyUp={() => setDropTime(1000)}
+      onKeyUp={handleKeyUp}
+      onTouchStart={(e: any) => handleTouchScreen(e)}
+      onTouchEnd={() => setDropTime(1000)}
     >
       <h1>React-Tetris</h1>
       <div className="container">

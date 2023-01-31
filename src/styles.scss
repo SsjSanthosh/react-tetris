@@ -1,35 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono&display=swap");
 body {
   background-image: url("../public/bg.png");
   background-position: center;
-  background-size: 100%;
   background-repeat: no-repeat;
-  width: 99vw;
-  height: 97vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
+
   font-family: "Space Mono", sans-serif;
   color: #fff;
 
   h1 {
-    font-size: 80px;
     text-align: center;
+    margin: 12px auto;
   }
   .boards-container {
     display: flex;
     flex-direction: column;
     row-gap: 25px;
-    width: 300px;
+    width: 20%;
     padding: 16px;
+  }
+  @media only screen and (max-width: 1076px) {
+    h1 {
+      font-size: 40px;
+    }
+  
+    .boards-container {
+      width: 300px;
+      margin: 20px auto;
+      flex-direction: column-reverse;
+    }
   }
 }
 
 .container {
-  width: 80%;
-  margin: 30px auto;
+  width: 90%;
+  max-width: 1200px;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  @media only screen and (max-width: 1076px) {
+    width:100%;
+    flex-direction: column;
+    justify-content:center;
+  }
 }

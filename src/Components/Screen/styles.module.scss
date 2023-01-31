@@ -1,8 +1,21 @@
 .container {
   width: 600px;
-  height:600px;
-  display:grid;
-  grid-template-rows: repeat(25, calc(25vw / 14 ));
-  grid-template-columns:repeat(12, 1fr);
-  border:1px solid #333;
+  height: 600px;
+  display: grid;
+  grid-template-rows: repeat(25, 30px);
+  grid-template-columns: repeat(12, 1fr);
+  border: 1px solid #333;
+  @media screen and (max-width: 1076px) {
+    width: 400px;
+    height: 400px;
+    grid-template-rows: repeat(25, 20px);
+    grid-template-columns: repeat(12, 1fr);
+  }
+  @media only screen and (max-width:576px){
+    width:350px;
+    height:350px;
+    grid-template-rows: repeat(25, 20px);
+    grid-template-columns: repeat(12, 1fr);
+    margin-bottom: 40px;
+  }
 }
