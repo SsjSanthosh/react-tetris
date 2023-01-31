@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createEmptyStage } from "utils/helpers";
-import { CellProps, PlayerProps, ScreenProps } from "utils/types";
+import { PlayerProps, ScreenProps } from "utils/types";
 
 export const useScreen = (player: PlayerProps, resetPlayer: () => void) => {
   const [screen, setScreen] = useState(createEmptyStage());
@@ -41,6 +41,7 @@ export const useScreen = (player: PlayerProps, resetPlayer: () => void) => {
                 `${player.blockColor}`,
               ];
           }
+          return null;
         });
       });
       if (player.collided) {
