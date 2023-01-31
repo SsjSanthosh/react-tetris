@@ -8,7 +8,7 @@ export interface ButtonProps {
   onClick: () => void;
 }
 
-export type CellProps = [number, "clear" | "collided"];
+export type CellProps = [number, "clear" | "collided", "string"];
 export type ScreenProps = CellProps[][];
 export interface BlockProps {
   shape: number[][];
@@ -23,4 +23,12 @@ export interface PlayerProps {
   block: number[][];
   collided: boolean;
   blockColor: null | string;
+}
+
+
+export interface StatusProps {
+  level:number;
+  gameOver:boolean;
+  rows:number;
+  score:number;
 }
