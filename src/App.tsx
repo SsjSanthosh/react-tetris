@@ -5,32 +5,20 @@ import { useGameStatus } from "hooks/useGameStatus";
 import { useInterval } from "hooks/useInterval";
 import { usePlayer } from "hooks/usePlayer";
 import { useScreen } from "hooks/useScreen";
-import {
-  ReactHTML,
-  TouchEventHandler,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { createEmptyStage, isColliding } from "utils/helpers";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { isColliding } from "utils/helpers";
 import { DisplayProps } from "utils/types";
 import "./styles.scss";
 
-const App = () => {
-  const { player, setPlayer, resetPlayer, movePlayer, rotateBlock } =
-    usePlayer();
-  const { screen, setScreen, rowsCleared, clearScreen } = useScreen(
-    player,
-    resetPlayer
-  );
+const App = () => { 
+  const { player, resetPlayer, movePlayer, rotateBlock } = usePlayer();
+  const { screen, rowsCleared, clearScreen } = useScreen(player, resetPlayer);
   const {
     gameOver,
     score,
     level,
     endGame,
     rows,
-    setLevel,
     startGame,
     resetGameState,
   } = useGameStatus(rowsCleared);
@@ -108,11 +96,11 @@ const App = () => {
     }
   };
 
-  const handleKeyUp = ({keyCode}:{keyCode:number}) => {
-    if(keyCode === 40){
+  const handleKeyUp = ({ keyCode }: { keyCode: number }) => {
+    if (keyCode === 40) {
       setDropTime(1000);
     }
-  }
+  };
 
   const resetGame = () => {
     clearScreen();
